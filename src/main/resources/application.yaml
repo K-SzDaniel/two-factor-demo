@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: two-factor-demo
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://host.docker.internal:3306/mydatabase
+    username: root
+    password: verysecret
+
+
+
