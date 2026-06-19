@@ -1,0 +1,69 @@
+.two-factor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  width: 30vw;
+  height: 30vw;
+  box-shadow: 0 4px 5px 5px #43404025;
+  border-radius: 10px;
+
+  h2 {
+    margin-top: 0;
+    height: 0.5vw;
+    font-size: 1.2vw;
+  }
+}
+
+.two-factor-input {
+  width: 10vw;
+  height: 2vw;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 5px 5px #43404025;
+  font-size: 0.8vw;
+  padding-left: 1vw;
+}
+
+.two-factor-container span {
+  font-size: 0.8vw;
+  margin-bottom: 1vw;
+}
+
+.two-factor-button {
+  width: 10vw;
+  height: 2vw;
+  border-radius: 10px;
+  color: #e1e1e1;
+  border: none;
+  background-color: #000000;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 0.8vw;
+  margin-top: 1vw;
+}
+
+.two-factor-button:hover {
+  background-color: #b1a2a2;
+  color: #000000;
+}
+
+
+.notification-success, .notification-failed {
+  position: absolute;
+  display: flex;
+  left: 20.5vw;
+  top: 51%;
+}
+
+.notification-success {
+  svg {
+    color: green;
+  }
+}
+
+.notification-failed {
+  svg {
+    color: darkred;
+  }
+}

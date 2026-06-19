@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Controller
 @RequestMapping("/api/v1/two-factor")
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 class TwoFactorController {
 

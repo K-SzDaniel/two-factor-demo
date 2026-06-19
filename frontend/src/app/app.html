@@ -1,0 +1,14 @@
+<header>
+  <div class="title">
+    <img ngSrc="/logo.png" alt="logo" height="102" width="153">
+    <div class="title-text">
+      <h1>Two-factor Authentication</h1>
+      <span>Demo application</span></div>
+  </div>
+</header>
+
+@if (!twoFactorDone) {
+  <app-two-factor></app-two-factor>
+} @else {
+  <app-two-factor-verify></app-two-factor-verify>
+}
