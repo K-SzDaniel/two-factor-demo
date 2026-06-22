@@ -55,6 +55,9 @@ public class TwoFactorService {
     public void validateTwoFactorCode(int code, String email) throws NoSuchAlgorithmException,
             InvalidKeyException {
         Account account = accountService.getAccount(email);
+        if (account.getSecret() == null) {
+            throw new BadRequestException("Two factor secret not generated");
+        }
         SecretKeySpec secretKeySpec = new SecretKeySpec(base32.decode(account.getSecret()), ALGORITHM);
         Mac mac = Mac.getInstance(ALGORITHM);
         mac.init(secretKeySpec);

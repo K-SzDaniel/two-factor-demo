@@ -1,7 +1,7 @@
 package milthdev.twofactordemo.controllers;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import milthdev.twofactordemo.exceptions.BadRequestException;
 import milthdev.twofactordemo.models.TwoFactorNumber;
 import milthdev.twofactordemo.models.TwoFactorRegResponse;
 import milthdev.twofactordemo.services.AccountService;
@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Controller
 @RequestMapping("/api/v1/two-factor")
+@SuppressWarnings("java:S5122")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 class TwoFactorController {
@@ -34,15 +35,23 @@ class TwoFactorController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<Void> generateTwoFactorUrl(@RequestBody @Validated TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
-        twoFactorService.validateTwoFactorCode(twoFactorNumber.code(), EMAIL);
+    public ResponseEntity<Void> validateTwoFactorCode(@RequestBody @Validated TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
+        twoFactorService.validateTwoFactorCode(parseNumbers(twoFactorNumber.code()), EMAIL);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<Void> resetTwoFactorSecret(@RequestBody @Validated TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
-        accountService.resetTwoFactorSecret( EMAIL);
+    public ResponseEntity<Void> resetTwoFactorSecret() {
+        accountService.resetTwoFactorSecret(EMAIL);
         return ResponseEntity.noContent().build();
+    }
+
+    private int parseNumbers(String code) {
+        try {
+            return Integer.parseInt(code);
+        } catch (NumberFormatException e) {
+            throw new BadRequestException("Code must be 6 digits");
+        }
     }
 
 }
