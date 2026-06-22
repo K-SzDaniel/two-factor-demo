@@ -1,10 +1,12 @@
 package milthdev.twofactordemo.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import milthdev.twofactordemo.models.Account;
 import milthdev.twofactordemo.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -26,5 +28,12 @@ public class AccountService {
         return repository.save(Account.builder()
                 .email(EMAIL)
                 .build());
+    }
+
+    public void resetTwoFactorSecret(String email) {
+        Account account = getAccount(email);
+        account.setSecret(null);
+        save(account);
+        log.info("Two factor secret reset for email: {}", email);
     }
 }

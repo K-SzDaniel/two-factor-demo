@@ -17,6 +17,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.internalServerError().body(ex.getMessage());
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handleBadRequestException(RuntimeException ex) {
+        log.error("BadRequestException occurred: {}", ex.getMessage(), ex);
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
         log.error("Runtime exception occurred: {}", ex.getMessage(), ex);

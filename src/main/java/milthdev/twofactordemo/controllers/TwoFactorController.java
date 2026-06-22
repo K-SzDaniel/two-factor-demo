@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import milthdev.twofactordemo.models.TwoFactorNumber;
 import milthdev.twofactordemo.models.TwoFactorRegResponse;
+import milthdev.twofactordemo.services.AccountService;
 import milthdev.twofactordemo.services.TwoFactorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ class TwoFactorController {
     private static final String EMAIL = "test@test.com";
 
     private final TwoFactorService twoFactorService;
+    private final AccountService accountService;
 
     @PostMapping("/generate-url")
     public ResponseEntity<TwoFactorRegResponse> generateTwoFactorUrl() {
@@ -34,7 +36,13 @@ class TwoFactorController {
     @PostMapping("/validate")
     public ResponseEntity<Void> generateTwoFactorUrl(@RequestBody @Validated TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
         twoFactorService.validateTwoFactorCode(twoFactorNumber.code(), EMAIL);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/reset")
+    public ResponseEntity<Void> resetTwoFactorSecret(@RequestBody @Validated TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
+        accountService.resetTwoFactorSecret( EMAIL);
+        return ResponseEntity.noContent().build();
     }
 
 }

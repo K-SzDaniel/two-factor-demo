@@ -2,6 +2,7 @@ package milthdev.twofactordemo.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import milthdev.twofactordemo.exceptions.BadRequestException;
 import milthdev.twofactordemo.models.Account;
 import milthdev.twofactordemo.models.TwoFactorRegResponse;
 import org.apache.commons.codec.binary.Base32;
@@ -46,22 +47,20 @@ public class TwoFactorService {
         TwoFactorRegResponse twoFactorResponse = TwoFactorRegResponse.builder()
                 .url(generateOtpAuthUrl(account, secretKey))
                 .build();
-        log.info("Generated two factor response: {}", twoFactorResponse);
         accountService.save(account);
+        log.info("Two factor secret generated for email: {}", email);
         return twoFactorResponse;
     }
 
     public void validateTwoFactorCode(int code, String email) throws NoSuchAlgorithmException,
             InvalidKeyException {
         Account account = accountService.getAccount(email);
-        log.info("Account: {}", account);
         SecretKeySpec secretKeySpec = new SecretKeySpec(base32.decode(account.getSecret()), ALGORITHM);
         Mac mac = Mac.getInstance(ALGORITHM);
         mac.init(secretKeySpec);
         List<Integer> totpCodes = getCurrentTOTP(mac);
-        log.info("Current TOTPs: {}, user TOTP: {}", totpCodes, code);
         if (totpCodes.stream().noneMatch(i -> i == code)) {
-            throw new RuntimeException("Invalid two factor code");
+            throw new BadRequestException("Invalid two factor code");
         }
     }
 
