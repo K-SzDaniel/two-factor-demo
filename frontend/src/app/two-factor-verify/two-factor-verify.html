@@ -6,12 +6,12 @@
     <input class="two-factor-input" #codeInput type="text" placeholder="Enter the code">
     @if (status() === 'success') {
       <div class="notification-success">
-        <img width="80" height="80" alt="success" ngSrc="/success.png">
+        <p>Code verified successfully!</p>
       </div>
     }
     @if (status() === 'failed') {
       <div class="notification-failed">
-        <img width="80" height="80" alt="success" ngSrc="/failed.png">
+        <p>Code verification failed!</p>
       </div>
     }
   </div>

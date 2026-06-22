@@ -48,22 +48,18 @@
   color: #000000;
 }
 
-
-.notification-success, .notification-failed {
-  position: absolute;
-  display: flex;
-  left: 20.5vw;
-  top: 57%;
+.notification-success p, .notification-failed p {
+  font-size: 0.55vw;
+  text-align: center;
 }
 
-.notification-success {
-  svg {
-    color: green;
-  }
+
+.notification-success p{
+  color: green;
 }
 
-.notification-failed {
-  svg {
-    color: darkred;
-  }
+.notification-failed p{
+  color: darkred;
 }
+
+

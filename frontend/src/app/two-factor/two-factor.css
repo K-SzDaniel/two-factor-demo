@@ -8,6 +8,7 @@
   height: 20vw;
   box-shadow: 0 4px 5px 5px #43404025;
   border-radius: 10px;
+  gap: 1rem;
 }
 
 .two-factor-container span {

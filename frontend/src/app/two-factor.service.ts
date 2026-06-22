@@ -36,4 +36,8 @@ export class TwoFactorService {
     return this.http.post<HttpResponse<unknown>>(`${this.backendDomain}/api/v1/two-factor/validate`, {"code": number});
   }
 
+  resetTwoFactorSecret() {
+    this.http.post<HttpResponse<unknown>>(`${this.backendDomain}/api/v1/two-factor/reset`, null)
+      .subscribe(() => this.getTotpUrl());
+  }
 }

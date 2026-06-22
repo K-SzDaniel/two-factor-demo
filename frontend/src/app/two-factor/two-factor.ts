@@ -19,4 +19,8 @@ export class TwoFactor {
   enableTwoFactor() {
     this.twoFactorService.twoFactorDone = true;
   }
+
+  protected resetTwoFactorSecret() {
+    this.twoFactorService.resetTwoFactorSecret();
+  }
 }
