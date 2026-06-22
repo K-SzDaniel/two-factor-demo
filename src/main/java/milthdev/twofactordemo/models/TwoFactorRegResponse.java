@@ -1,4 +1,4 @@
-package milthdev.twofactordemo.model;
+package milthdev.twofactordemo.models;
 
 import lombok.Builder;
 

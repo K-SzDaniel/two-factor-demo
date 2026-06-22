@@ -1,6 +1,6 @@
 package milthdev.twofactordemo.repository;
 
-import milthdev.twofactordemo.model.Account;
+import milthdev.twofactordemo.models.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
