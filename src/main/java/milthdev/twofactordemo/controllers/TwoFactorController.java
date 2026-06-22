@@ -1,11 +1,13 @@
 package milthdev.twofactordemo.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import milthdev.twofactordemo.models.TwoFactorNumber;
 import milthdev.twofactordemo.models.TwoFactorRegResponse;
 import milthdev.twofactordemo.services.TwoFactorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +32,7 @@ class TwoFactorController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<Void> generateTwoFactorUrl(@RequestBody TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
+    public ResponseEntity<Void> generateTwoFactorUrl(@RequestBody @Validated TwoFactorNumber twoFactorNumber) throws NoSuchAlgorithmException, InvalidKeyException {
         twoFactorService.validateTwoFactorCode(twoFactorNumber.code(), EMAIL);
         return ResponseEntity.ok(null);
     }

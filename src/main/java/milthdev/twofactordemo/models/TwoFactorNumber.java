@@ -1,5 +1,7 @@
 package milthdev.twofactordemo.models;
 
-public record TwoFactorNumber(int code) {
+import jakarta.validation.constraints.Positive;
+
+public record TwoFactorNumber(@Positive int code) {
 
 }
